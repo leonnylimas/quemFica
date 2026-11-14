@@ -1,0 +1,345 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Quem Fica</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+/* Layout: página única noturna, leitura em coluna estreita, galerias de páginas do livro como blocos de respiro entre os textos */
+:root {
+  --bg: #1b2543;
+  --bg-2: #222d52;
+  --fg: #eef0f6;
+  --muted: #aeb6cf;
+  --line: rgba(238,240,246,.14);
+  --accent: #f3d9a8;
+  --accent-ink: #1b2543;
+  --card: #26325a;
+  --serif: "Lora", Georgia, "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #eef1f7; --bg-2: #e2e7f1; --fg: #1b2543; --muted: #4d5878; --line: rgba(27,37,67,.15);
+    --accent: #9a6a2e; --accent-ink: #ffffff; --card: #ffffff; color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #eef1f7; --bg-2: #e2e7f1; --fg: #1b2543; --muted: #4d5878; --line: rgba(27,37,67,.15);
+  --accent: #9a6a2e; --accent-ink: #ffffff; --card: #ffffff; color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.7; margin: 0; }
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.2; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.band { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 72px; }
+.band.alt { background: var(--bg-2); }
+.wrap { max-width: 1040px; margin: 0 auto; }
+.narrow { max-width: 620px; margin: 0 auto; }
+.stack { display: flex; flex-direction: column; gap: 20px; }
+.eyebrow { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+h2 { font-size: clamp(28px, 4.6vw, 42px); }
+.lead { font-family: var(--serif); font-size: clamp(18px, 2.4vw, 22px); line-height: 1.6; }
+.soft { color: var(--muted); }
+.center { text-align: center; }
+.center.stack { align-items: center; }
+
+.btn { display: inline-block; background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 600; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; padding: 16px 30px; border-radius: 999px; transition: transform .2s ease, filter .2s ease; text-align: center; }
+.btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+
+/* hero */
+.hero { background: radial-gradient(ellipse 70% 60% at 75% 40%, rgba(243,217,168,.16), transparent 70%), var(--bg); padding-block: 56px 80px; }
+.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 8vw, 84px); letter-spacing: .14em; font-weight: 400; }
+.hero .sub { font-family: var(--serif); font-style: italic; font-size: clamp(18px, 2.4vw, 22px); color: var(--muted); }
+.rule { width: 72px; height: 1px; background: var(--accent); border: 0; margin: 0; }
+.hero-art img { border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,.35); }
+.price-note { font-size: 14px; color: var(--muted); }
+
+/* lists */
+.ticks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.ticks li { padding-left: 26px; position: relative; }
+.ticks li::before { content: ""; position: absolute; left: 4px; top: .7em; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.ticks b { font-weight: 600; }
+
+.two { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: center; }
+.two.flip { grid-template-columns: 1.2fr .8fr; }
+.book img { margin: 0 auto; max-width: 360px; width: 100%; filter: drop-shadow(0 24px 30px rgba(0,0,0,.28)); }
+
+/* galleries of real pages */
+.pages { display: grid; gap: 18px; }
+.pages.c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.pages.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 760px; margin: 0 auto; }
+.pg { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.pg img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 6px; box-shadow: 0 10px 26px rgba(0,0,0,.28); border: 1px solid var(--line); }
+.pg figcaption { font-size: 13px; color: var(--muted); line-height: 1.4; }
+.pg figcaption b { display: block; font-family: var(--serif); font-weight: 500; font-size: 16px; color: var(--fg); }
+
+.invite { border: 1px solid var(--line); border-radius: 16px; padding: 28px; background: var(--card); }
+.invite p + p { margin-top: 8px; }
+
+/* receive / price */
+.offer { background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: clamp(24px, 5vw, 48px); display: grid; grid-template-columns: .8fr 1.2fr; gap: 40px; align-items: center; box-shadow: 0 30px 70px rgba(0,0,0,.22); }
+.price { font-family: var(--serif); font-size: clamp(44px, 7vw, 64px); line-height: 1; color: var(--accent); }
+.price small { font-family: var(--sans); font-size: 14px; color: var(--muted); display: block; margin-bottom: 8px; letter-spacing: .1em; text-transform: uppercase; }
+.secure { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* faq */
+details { border-top: 1px solid var(--line); padding: 18px 0; }
+details:last-of-type { border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; font-family: var(--serif); font-size: 19px; list-style: none; display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--accent); font-size: 24px; line-height: 1; flex-shrink: 0; }
+details[open] summary::after { content: "\2212"; }
+details p { margin-top: 12px; color: var(--muted); }
+
+.final { background: linear-gradient(180deg, var(--bg) 0%, #131a33 100%); }
+.final h2, .final p { color: #eef0f6; }
+.final .soft { color: #aeb6cf; }
+.final .eyebrow { color: #f3d9a8; }
+.final .btn { background: #f3d9a8; color: #1b2543; }
+.final .rule { background: #f3d9a8; }
+.final-art img { max-width: 220px; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,.4); margin: 0 auto; }
+.note { font-size: 13px; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--line); padding-top: 20px; margin-top: 8px; }
+
+@media (max-width: 820px) {
+  .band { padding-block: 56px; }
+  .hero-grid, .two, .two.flip, .offer { grid-template-columns: 1fr; gap: 36px; }
+  .hero-art { order: -1; max-width: 420px; margin: 0 auto; }
+  .pages.c4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pages.c3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .book { order: -1; }
+  .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+
+<main>
+  <!-- HERO -->
+  <section class="band hero">
+    <div class="wrap hero-grid">
+      <div class="stack">
+        <h1>QUEM FICA</h1>
+        <hr class="rule">
+        <p class="sub">Um livro de acolhimento para quem está aprendendo a viver com a saudade.</p>
+        <p class="lead">Não existe um jeito certo de atravessar a dor. E você não precisa descobrir tudo hoje.</p>
+        <p class="soft">Há saudades que não desaparecem. Há lembranças que chegam sem avisar. E há dias em que simplesmente continuar já exige muito.</p>
+        <p class="soft">Quem Fica é um livro de acolhimento para quem está aprendendo a conviver com a ausência de alguém importante. Uma leitura delicada, com pequenas histórias, reflexões e gestos de cuidado para acompanhar você, sem pressa, sem cobranças e sem fórmulas prontas.</p>
+        <p class="lead">Uma leitura para fazer no seu tempo. Uma página de cada vez.</p>
+        <div class="stack" style="align-items:flex-start;gap:12px">
+          <a class="btn" href="#preco">Quero conhecer o Quem Fica</a>
+          <span class="price-note">Ebook em PDF · R$&nbsp;19,90</span>
+        </div>
+      </div>
+      <div class="hero-art"><img src="img/tablet-celular.webp" width="1000" height="1250" alt="O livro Quem Fica em um tablet e em um celular"></div>
+    </div>
+  </section>
+
+  <!-- NÃO PRECISA ESTAR BEM -->
+  <section class="band alt">
+    <div class="narrow stack">
+      <h2>Você não precisa estar bem todos os dias.</h2>
+      <p class="lead">Talvez existam dias em que uma lembrança faça sorrir. Em outros, uma música, uma fotografia ou uma data especial traga novamente aquela sensação de ausência.</p>
+      <p class="lead" style="color:var(--accent)">E tudo bem.</p>
+      <p class="soft">Nem sempre encontramos palavras para explicar o que sentimos. Às vezes, as pessoas ao redor querem ajudar, mas não sabem o que dizer. E, em meio a tantas tentativas de seguir em frente, pode faltar justamente aquilo de que mais precisamos: um espaço para sentir sem precisar explicar.</p>
+      <p>Foi pensando nisso que nasceu o Quem Fica.</p>
+      <p class="soft">Um livro que não pretende ensinar você a esquecer, apagar lembranças ou estabelecer um prazo para a saudade. Ele foi criado para oferecer uma leitura acolhedora a quem está descobrindo, pouco a pouco, como continuar vivendo com aquilo que permanece no coração.</p>
+      <p class="lead">Um livro para ler sem pressa e sem obrigação de encontrar respostas.</p>
+    </div>
+  </section>
+
+  <!-- 46 PÁGINAS -->
+  <section class="band" id="livro">
+    <div class="wrap two flip">
+      <div class="stack">
+        <span class="eyebrow">Ao longo de 46 páginas</span>
+        <h2>Você vai encontrar</h2>
+        <ul class="ticks">
+          <li><b>8 capítulos ilustrados:</b> cada um acompanhado de uma atmosfera visual própria.</li>
+          <li><b>Pequenas histórias:</b> personagens fictícios que dão vida a situações e sentimentos relacionados à saudade.</li>
+          <li><b>Reflexões delicadas:</b> palavras para acompanhar momentos em que os sentimentos parecem difíceis de organizar.</li>
+          <li><b>Para o seu dia:</b> uma pergunta para refletir e um gesto simples ao final de cada capítulo.</li>
+          <li><b>Páginas para escrever:</b> espaços para registrar lembranças, escrever uma carta não enviada e reconhecer pequenas coisas que fizeram bem.</li>
+          <li><b>Frases para os dias muito pesados:</b> palavras para consultar quando faltar disposição.</li>
+          <li><b>Lista dos dias pesados:</b> um espaço com pequenas marcações para acompanhar esses momentos.</li>
+          <li><b>Quando procurar ajuda:</b> uma página com orientações e contatos importantes.</li>
+        </ul>
+        <p class="soft">Cada parte foi pensada para respeitar seu ritmo. Você pode ler um capítulo hoje, deixar o livro descansar e voltar quando sentir vontade.</p>
+      </div>
+      <div class="book"><img src="img/livro.webp" width="900" height="1071" alt="Capa do livro Quem Fica: uma árvore diante da lua, sob um céu estrelado"></div>
+    </div>
+  </section>
+
+  <!-- CAPÍTULOS -->
+  <section class="band alt">
+    <div class="wrap stack" style="gap:40px">
+      <div class="stack center" style="align-items:center;max-width:680px;margin:0 auto">
+        <span class="eyebrow">O que você encontrará dentro</span>
+        <h2>8 capítulos, 8 ilustrações originais e diferentes convites à reflexão.</h2>
+        <p class="soft">As ilustrações foram criadas especialmente para o livro, trazendo elementos como ondas, janelas ao amanhecer, casas com luz acesa, lagos, velas, árvores e campos de flores. São imagens que acompanham a proposta de delicadeza e contemplação presente em toda a obra.</p>
+      </div>
+      <div class="pages c4">
+        <figure class="pg"><img loading="lazy" src="img/p5.jpg" width="560" height="840" alt="Abertura do capítulo 1"><figcaption><b>Você não está fazendo errado</b>Não existe um jeito certo de atravessar a dor.</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p10.jpg" width="560" height="840" alt="Abertura do capítulo 2"><figcaption><b>O dia seguinte</b>Quando o mundo continua e você não.</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p16.jpg" width="560" height="840" alt="Abertura do capítulo 3"><figcaption><b>A casa cheia de ausência</b>Objetos, rotinas e silêncios.</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p20.jpg" width="560" height="840" alt="Abertura do capítulo 4"><figcaption><b>Culpa e “e se”</b>O que a gente conta a si mesmo na madrugada.</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p25.jpg" width="560" height="840" alt="Abertura do capítulo 5"><figcaption><b>Datas difíceis</b>Aniversários, Natais e domingos.</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p29.jpg" width="560" height="840" alt="Abertura do capítulo 6"><figcaption><b>Quando os outros não sabem o que dizer</b>Frases que machucam, silêncios que acolhem.</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p34.jpg" width="560" height="840" alt="Abertura do capítulo 7"><figcaption><b>Rir de novo sem trair a saudade</b>Quando a vida pede passagem.</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p38.jpg" width="560" height="840" alt="Abertura do capítulo 8"><figcaption><b>O amor que fica</b>Uma carta que não é despedida.</figcaption></figure>
+      </div>
+      <div class="invite narrow stack" style="gap:6px">
+        <span class="eyebrow">E ao final de cada capítulo, um pequeno convite</span>
+        <h3 style="font-size:24px;margin-top:6px">Para o seu dia.</h3>
+        <p class="soft">Uma pergunta para levar consigo e um gesto simples que você pode experimentar. Não é uma tarefa. Não é uma cobrança. É apenas um convite para olhar com carinho para o dia que está diante de você.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PÁGINAS DE ESCRITA -->
+  <section class="band">
+    <div class="wrap stack" style="gap:40px">
+      <div class="stack center" style="align-items:center;max-width:640px;margin:0 auto">
+        <span class="eyebrow">Para escrever</span>
+        <h2>Também existem páginas para colocar sentimentos em palavras.</h2>
+        <p class="soft">O livro inclui quatro páginas especiais. Porque algumas coisas são difíceis de dizer em voz alta. Mas talvez possam começar a encontrar espaço no papel.</p>
+      </div>
+      <div class="pages c4">
+        <figure class="pg"><img loading="lazy" src="img/p15.jpg" width="560" height="840" alt="Página para escrever: uma lembrança que quero guardar"><figcaption>Uma lembrança que você deseja guardar.</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p24.jpg" width="560" height="840" alt="Página para escrever: uma carta que não vou enviar"><figcaption>Uma carta que talvez nunca seja enviada.</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p33.jpg" width="560" height="840" alt="Página para escrever: pequenas coisas que me fizeram bem"><figcaption>Pequenas coisas que fizeram bem.</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p42.jpg" width="560" height="840" alt="Página para escrever: três palavras"><figcaption>Três palavras que representam o que você sente.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUEM É -->
+  <section class="band alt">
+    <div class="wrap two">
+      <div class="stack">
+        <span class="eyebrow">Para quem é</span>
+        <h2>Para quem é o Quem Fica?</h2>
+        <p class="soft">Este livro foi criado para pessoas que querem uma leitura sem conselhos prontos.</p>
+      </div>
+      <div class="stack">
+        <ul class="ticks">
+          <li>Gostariam de encontrar uma leitura sensível sobre saudade e memória.</li>
+          <li>Sentem falta de alguém importante e desejam um espaço de reflexão.</li>
+          <li>Percebem que determinadas datas despertam lembranças especiais.</li>
+          <li>Não gostam de conselhos prontos sobre como lidar com a perda.</li>
+          <li>Gostariam de registrar histórias, sentimentos e lembranças.</li>
+          <li>Querem oferecer uma leitura carinhosa a alguém que esteja vivendo um momento de perda.</li>
+        </ul>
+        <p class="lead">Também pode ser uma forma delicada de presentear alguém que você gostaria de acolher.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR DENTRO -->
+  <section class="band">
+    <div class="wrap stack" style="gap:40px">
+      <div class="stack center" style="align-items:center;max-width:640px;margin:0 auto">
+        <span class="eyebrow">Por dentro</span>
+        <h2>Conheça o livro por dentro.</h2>
+        <p class="soft">O Quem Fica foi desenvolvido em formato digital, com proporção 6×9", pensado para uma experiência de leitura em celulares e tablets.</p>
+      </div>
+      <div class="pages c3">
+        <figure class="pg"><img loading="lazy" src="img/p9.jpg" width="560" height="840" alt="Página Para o seu dia, com uma pergunta e um gesto simples"><figcaption>Para o seu dia</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p43.jpg" width="560" height="840" alt="Página com frases para os dias muito pesados"><figcaption>Frases para os dias muito pesados</figcaption></figure>
+        <figure class="pg"><img loading="lazy" src="img/p44.jpg" width="560" height="840" alt="Página com a lista dos dias pesados"><figcaption>A lista dos dias pesados</figcaption></figure>
+      </div>
+      <div class="narrow stack">
+        <p class="soft center">Você não precisa reservar horas para ler. Pode começar por onde quiser e seguir no seu próprio ritmo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESENTE -->
+  <section class="band alt">
+    <div class="narrow stack center">
+      <span class="eyebrow">Para presentear</span>
+      <h2>Um presente de palavras para quem está aprendendo a conviver com a saudade.</h2>
+      <p class="soft">Talvez você esteja procurando um livro para si. Talvez esteja pensando em alguém querido que não sabe muito bem como expressar o que sente. Em ambos os casos, o Quem Fica oferece uma experiência de leitura feita de pequenas histórias, imagens e reflexões.</p>
+      <p class="lead">Não para oferecer respostas definitivas. Mas para lembrar que cada pessoa tem seu próprio tempo.</p>
+    </div>
+  </section>
+
+  <!-- OFERTA -->
+  <section class="band" id="preco">
+    <div class="wrap stack" style="gap:36px">
+      <h2 class="center">Sua leitura começa por R$&nbsp;19,90.</h2>
+      <div class="offer">
+        <div class="book"><img src="img/livro.webp" width="900" height="1071" alt="Capa do ebook Quem Fica" loading="lazy"></div>
+        <div class="stack">
+          <div>
+            <h3 style="font-size:28px;letter-spacing:.12em">QUEM FICA</h3>
+            <p class="soft" style="margin-top:6px">Um livro de acolhimento para quem está aprendendo a viver com a saudade.</p>
+          </div>
+          <ul class="ticks">
+            <li>Ebook digital em PDF.</li>
+            <li>46 páginas.</li>
+            <li>8 capítulos ilustrados.</li>
+            <li>Reflexões e histórias.</li>
+            <li>Caderno de apoio ao final dos capítulos.</li>
+            <li>Páginas para escrever e guardar lembranças.</li>
+          </ul>
+          <div class="price"><small>Investimento</small>R$&nbsp;19,90</div>
+          <a class="btn buy" href="#preco">Quero meu exemplar do Quem Fica</a>
+          <p class="secure">Pagamento seguro pela plataforma de compra. Acesso digital após a confirmação do pagamento, conforme as condições da plataforma.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="band alt">
+    <div class="narrow">
+      <h2 style="margin-bottom:28px">Perguntas frequentes</h2>
+      <details><summary>O Quem Fica é um livro físico?</summary><p>Não. É um ebook digital em PDF.</p></details>
+      <details><summary>Posso ler pelo celular?</summary><p>Sim. O formato foi pensado para facilitar a leitura em celulares e tablets.</p></details>
+      <details><summary>Quantas páginas tem?</summary><p>O livro possui 46 páginas.</p></details>
+      <details><summary>Preciso ler os capítulos na ordem?</summary><p>Não. Você pode escolher por onde começar e fazer a leitura no seu próprio ritmo.</p></details>
+      <details><summary>O livro possui atividades?</summary><p>Sim. Ao final de cada capítulo há uma seção chamada Para o seu dia, com uma pergunta para reflexão e um gesto simples. Também existem quatro páginas para escrita pessoal.</p></details>
+      <details><summary>O livro promete superar o luto?</summary><p>Não. O propósito do Quem Fica não é oferecer uma fórmula para superar a perda. É proporcionar uma experiência de leitura e reflexão sobre saudade, memória e continuidade.</p></details>
+      <details><summary>Posso comprar para presentear alguém?</summary><p>Sim. O conteúdo pode ser uma opção de presente para alguém que aprecia leituras sensíveis sobre memória e saudade.</p></details>
+      <details><summary>O livro substitui acompanhamento psicológico?</summary><p>Não. É um material literário e reflexivo. Não substitui atendimento psicológico, médico ou qualquer acompanhamento profissional.</p></details>
+      <details><summary>Como receberei meu livro?</summary><p>O arquivo PDF será disponibilizado digitalmente após a confirmação do pagamento, conforme o processo da plataforma escolhida.</p></details>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="band final">
+    <div class="narrow stack center">
+      <span class="eyebrow">Uma última coisa...</span>
+      <div class="stack" style="gap:6px">
+        <p class="lead">Não existe um calendário para a saudade.</p>
+        <p class="lead">Não existe uma maneira universal de sentir falta.</p>
+        <p class="lead">E não existe obrigação de transformar tudo em força, aprendizado ou superação.</p>
+      </div>
+      <p class="soft">Há dias de lembrança. Dias de silêncio. Dias em que uma pequena coisa faz bem. E há dias em que tudo o que conseguimos fazer é continuar.</p>
+      <p>Quem Fica é um convite para encontrar um pouco de acolhimento nessa caminhada. Porque algumas presenças permanecem de outras maneiras.</p>
+      <hr class="rule">
+      <div class="final-art"><img loading="lazy" src="img/p46.jpg" width="560" height="840" alt="Contracapa do livro: Um dia de cada vez"></div>
+      <h3 style="font-size:32px;letter-spacing:.14em">QUEM FICA</h3>
+      <p class="soft">Um livro de acolhimento para quem está aprendendo a viver com a saudade.</p>
+      <a class="btn buy" href="#preco">Quero conhecer o livro</a>
+      <p class="note" style="color:#aeb6cf;border-color:rgba(238,240,246,.14)">Quem Fica é uma obra literária e reflexiva. Em situações de sofrimento intenso, procure apoio profissional. Em situações de emergência, busque atendimento imediato. No Brasil, o CVV atende pelo 188 e o SAMU pelo 192.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Cole aqui o link de checkout da sua plataforma (Hotmart, Kiwify, Eduzz, etc.).
+  // Enquanto estiver vazio, os botões de compra apenas rolam até a seção de preço.
+  var CHECKOUT_URL = "";
+  if (CHECKOUT_URL) {
+    document.querySelectorAll("a.buy").forEach(function (a) {
+      a.href = CHECKOUT_URL; a.target = "_blank"; a.rel = "noopener";
+    });
+  }
+</script>
+
+</body></html>
